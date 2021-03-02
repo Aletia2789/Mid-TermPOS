@@ -4,46 +4,61 @@ using System.Text;
 
 namespace Mid_TermPOS
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            //var mymenu = new ReadMenu();
-            //Console.WriteLine(mymenu);
+            Console.WriteLine("Welcome to Our Store!");
+            do
+            {
+                DisplayProducts();
+                Console.WriteLine();
+                Shopping.GoShopping();
 
-            //StreamReader reader = new StreamReader("C:\Documents\displayMenu.txt");
+            } while (ContinueAddingProducts());
+            Shopping.CheckoutCartForUser();
+            Console.ReadKey();
+        }
 
-            MenuReader menu = new MenuReader();
-            MenuReader.MyMenu();
+        public static bool ContinueAddingProducts()
+        {
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nWould you like to Add More Items? (y/n)");
+                
+                var userInput = Console.ReadLine();
+                if (userInput.Equals("Y", StringComparison.OrdinalIgnoreCase) || userInput.Equals("yes", StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+                else if (userInput.Equals("N", StringComparison.OrdinalIgnoreCase) || userInput.Equals("no", StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Please enter a valid Response ");
+                }
 
-            //    try
-            //    {
+            } while (true);
+        }
 
-            //        StreamReader menu = new StreamReader("C:\\Users\\banka\\Documents\\displayMenu.txt");
+        private static void DisplayProducts()
+        {
+            var products = TextFile.GetAllProducts();
 
-            //        var line = menu.ReadLine();
+            int counter = 1;
 
-            //        while (line != null)
-            //        {
-
-            //            Console.WriteLine(line);
-
-            //            line = menu.ReadLine();
-            //        }
-
-            //        menu.Close();
-            //        Console.ReadLine();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine("Exception: " + e.Message);
-            //    }
-            //    finally
-            //    {
-            //        Console.WriteLine("Executing finally block.");
-            //    }
-            //}
+            foreach (var product in products)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{counter}. { product.Category }, { product.Name }, { product.Description }, { product.PriceOfItems }");
+                counter++;
+            }
         }
     }
+
 }
+

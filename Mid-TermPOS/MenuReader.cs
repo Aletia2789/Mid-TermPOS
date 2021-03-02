@@ -9,24 +9,26 @@ namespace Mid_TermPOS
     {
         //private static readonly string filePath = @"C:\Documents\displayMenu.txt";
 
-        public static void MyMenu()
+        public static List<string> MyMenu() //return an array taking text file and converting to a menu array
         {
+            List<string> output = new List<string>();
+
             try
             {
                 //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader("C:\\Users\\banka\\Documents\\displayMenu.txt");
+                StreamReader menu = new StreamReader("C:\\Users\\banka\\Documents\\displayMenu.txt");
                 //Read the first line of text
-                var line = sr.ReadLine();
+                var line = menu.ReadLine();
                 //Continue to read until you reach end of file
                 while (line != null)
                 {
                     //write the lie to console window
                     Console.WriteLine(line);
                     //Read the next line
-                    line = sr.ReadLine();
+                    line = menu.ReadLine(); //line.spilt and split with a comma to get the infomration
                 }
                 //close the file
-                sr.Close();
+                menu.Close();
                 Console.ReadLine();
             }
             catch (Exception e)
@@ -37,6 +39,8 @@ namespace Mid_TermPOS
             {
                 Console.WriteLine("Executing finally block.");
             }
+
+
         }
     }
 }
